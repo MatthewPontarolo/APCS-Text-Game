@@ -1,0 +1,114 @@
+package TextGame;
+
+import java.util.*;
+public class GameRunner {
+    private static String in;
+    private static Scanner scan = new Scanner(System.in);
+    
+    //Attribute variables
+    private static Stat obedience = new Obedience();
+    private static Stat knowledge = new Knowledge();
+    private static Stat popularity = new Popularity();
+    
+    private static Stat morality = new Morality();
+    private static Stat fun = new Fun();
+    private static Stat grade = new Grade();
+    //Decision variables
+    private static boolean difChair = false;
+    private static boolean seenSalad = false;
+    
+    public static void main(String[] args) {
+        System.out.println("Day 1\n");
+        System.out.println("You walk in to your first day of APCS.  The teacher asks your name.");
+        in = scan.nextLine();
+        while (!in.equalsIgnoreCase("tell name") && !in.equalsIgnoreCase("no"))
+            in = scan.nextLine();
+        if (in.equalsIgnoreCase("no")) {
+            System.out.println("The teacher gives you a grim stare and waits for everyone else to enter.  She knows who you are by deduction.");
+            obedience.changeAmt(-1);
+        } else {
+            System.out.println("The teacher nods and places a check on her list.");
+            obedience.changeAmt(1);
+        }
+        System.out.println();
+        
+        System.out.println("The teacher motions for you to sit at a chair.");
+        in = scan.nextLine();
+        while (!in.equalsIgnoreCase("sit chair") && !in.equalsIgnoreCase("sit different chair"))
+            in = scan.nextLine();
+        System.out.println();
+        if (in.equals("sit different chair")) {
+            difChair = true;
+            obedience.changeAmt(-1);
+            System.out.println("The teacher gives you an odd look, but for the most part looks unphased.");
+        } else obedience.changeAmt(1);
+        
+        System.out.println("The teacher asks for a raise of hands of people who already know some things about computer science.");
+        while (!in.equalsIgnoreCase("raise hand") && !in.equalsIgnoreCase("sit still"))
+            in = scan.nextLine();
+        System.out.println();
+        if (in.equals("raise hand")) {
+            knowledge.changeAmt(1);
+            System.out.println("The teacher looks at you, nods, and says 'Good.'");
+        } else {
+            System.out.println("You look around and see nearly everyone else has their hand raised.");
+        }
+        
+        System.out.print("The teacher tells all the students to start their computers after they have all taken a seat."); scan.nextLine();
+        if (difChair) {
+            System.out.println("The computer in front of you is already on, so you sit there contently.");
+            System.out.println("You find yourself faced with a moral dilemma: do you look through the files of this person's account?");
+            while (!in.equalsIgnoreCase("yes") && !in.equalsIgnoreCase("no"))
+                in = scan.nextLine();
+            System.out.println();
+            if (in.equals("yes")) {
+                System.out.println("You find nothing of interest besides a folder labeled 'Car.'  It contains nothing but a stock photo of salad.");
+                seenSalad = true;
+                morality.changeAmt(-2);
+            }
+            if (in.equals("no")) {
+                System.out.println("You are a silent upholder of justice and righteousness.  The world will never know of your deeds, but we will.");
+                morality.changeAmt(3);
+            }
+        } else {
+            System.out.println("You start up your computer and look around at your class. It is a 4-sided room lined with desks along the edges, with a few rows interspersed between.");
+        }
+        System.out.println();
+        
+        System.out.print("The teacher passes out a page of notes and starts to read off of them."); scan.nextLine();
+        if (difChair) {
+            System.out.println("You listen intently to the most simple of CompSci concepts: System.out.println()");
+            knowledge.changeAmt(1);
+        } else {
+            System.out.println("The kid next to you tries to start talking to you. Do you talk to him?");
+            while (!in.equalsIgnoreCase("yes") && !in.equalsIgnoreCase("no"))
+                in = scan.nextLine();
+            if (in.equalsIgnoreCase("yes")) {
+                System.out.println("You proceed to have a riveting discusion about grilled cheese. You've decided you have more interest in cheese melting on bread than notes.");
+                fun.changeAmt(1);
+                popularity.changeAmt(1);
+            } else {
+                System.out.println("You listen intently to the most simple of CompSci concepts: System.out.println()");
+                knowledge.changeAmt(1);
+                obedience.changeAmt(1);
+            }
+        }
+        System.out.println();
+        
+        System.out.print("The teacher introduces you to CardInAll, the IDE the class uses."); scan.nextLine();
+        System.out.println("Once you have a familiarity with it, the teacher asks you to create a line that prints out \"Hello World\".");
+        
+        System.out.println();
+        System.out.println("- - - - - - - - - - - -");
+        System.out.println();
+        System.out.println("Obedience: " + obedience + " (" + obedience.getAmt() + ")");
+        System.out.println("Knowledge: " + knowledge + " (" + knowledge.getAmt() + ")");
+        System.out.println("Popularity: " + popularity + " (" + popularity.getAmt() + ")");
+        System.out.println("Morality: " + morality + " (" + morality.getAmt() + ")");
+        System.out.println("Fun: " + fun + " (" + fun.getAmt() + ")");
+        System.out.println("Grade: " + grade);
+        System.out.println();
+        System.out.println("- - - - -");
+        System.out.println();
+    }
+}
